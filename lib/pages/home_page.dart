@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:training_2024/drawers/first_item.dart';
 import 'package:training_2024/pages/first_page.dart';
 import 'package:training_2024/pages/profile_page.dart';
 import 'package:training_2024/pages/search_page.dart';
 import 'package:training_2024/pages/setting_page.dart';
+
+import '../drawers/second_item.dart';
+import '../drawers/thirdly_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentvalue = 0;
+  bool selectedItem = false;
   void onTapHandler(int index) {
     setState(() {
       currentvalue = index;
@@ -20,6 +25,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> contents = [
+    const DrawerFirstItem(),
+    const DrawerSecondItem(),
+    const DrawerThirdItem(),
     const FirstPage(),
     const SearchPage(),
     const ProfilePage(),
@@ -31,8 +39,8 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(
+          children: <Widget>[
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -43,9 +51,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 33,
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color.fromARGB(255, 22, 188, 0),
                     child: CircleAvatar(
-                      radius: 30,
+                      radius: 32,
                       backgroundImage: NetworkImage(
                         'https://instagram.fcgk4-5.fna.fbcdn.net/v/t51.2885-19/447093431_1132205914667005_4657300961670120390_n.jpg?_nc_ht=instagram.fcgk4-5.fna.fbcdn.net&_nc_cat=101&_nc_ohc=pThsluqrJcYQ7kNvgFt7h-4&edm=AEhyXUkBAAAA&ccb=7-5&oh=00_AYAXexB0TsqIWaBoBteSR6rR5x26W5T6Obd-xTDdXNe_2w&oe=666D8C19&_nc_sid=cf751b',
                       ),
@@ -63,10 +71,28 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                selectedItem = !selectedItem;
+                onTapHandler(0);
+              },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                selectedItem = !selectedItem;
+                onTapHandler(1);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 3'),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              onTap: () {
+                selectedItem = !selectedItem;
+                onTapHandler(2);
+              },
             ),
           ],
         ),
