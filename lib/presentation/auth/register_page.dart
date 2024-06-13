@@ -139,30 +139,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         context
                             .read<RegisterBloc>()
                             .add(RegisterButtonPressed(data: dataModel));
-
-                        // AuthRemoteDatasource datasource = AuthRemoteDatasource();
-                        // final response = await datasource.registerUser(
-                        //   RegisterRequestModel(
-                        //     name: _nameController.text,
-                        //     email: _emailController.text,
-                        //     password: _passwordController.text,
-                        //   ),
-                        // );
-
-                        // //check response
-                        // response.fold(
-                        //   (error) => ScaffoldMessenger.of(context).showSnackBar(
-                        //     SnackBar(
-                        //       content: Text(error),
-                        //     ),
-                        //   ),
-                        //   (success) => ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //       content: Text("Success"),
-                        //     ),
-                        //   ),
-                        // );
-                        // Navigator.pop(context);
                       },
                       style: const ButtonStyle(
                         textStyle: WidgetStatePropertyAll(
