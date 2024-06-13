@@ -3,6 +3,7 @@ import 'package:training_2024/pages/first_page.dart';
 import 'package:training_2024/pages/profile_page.dart';
 import 'package:training_2024/pages/search_page.dart';
 import 'package:training_2024/pages/setting_page.dart';
+import 'package:training_2024/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
           children: const <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: StyleCustome.green,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -43,11 +44,11 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: 33,
-                    backgroundColor: Colors.red,
+                    backgroundColor: StyleCustome.blue,
                     child: CircleAvatar(
                       radius: 30,
                       backgroundImage: NetworkImage(
-                        'https://instagram.fcgk4-5.fna.fbcdn.net/v/t51.2885-19/447093431_1132205914667005_4657300961670120390_n.jpg?_nc_ht=instagram.fcgk4-5.fna.fbcdn.net&_nc_cat=101&_nc_ohc=pThsluqrJcYQ7kNvgFt7h-4&edm=AEhyXUkBAAAA&ccb=7-5&oh=00_AYAXexB0TsqIWaBoBteSR6rR5x26W5T6Obd-xTDdXNe_2w&oe=666D8C19&_nc_sid=cf751b',
+                        'https://instagram.fcgk18-1.fna.fbcdn.net/v/t51.2885-19/447093431_1132205914667005_4657300961670120390_n.jpg?_nc_ht=instagram.fcgk18-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=MCCVml3IYHIQ7kNvgEBJJ9s&edm=APHcPcMBAAAA&ccb=7-5&oh=00_AYC9_8vAxGheqY8I0MfRFZqAG2M2eTKnduCFiPJJAw15qA&oe=66702F19&_nc_sid=cf751b',
                       ),
                       // backgroundColor: Color.fromARGB(255, 1, 46, 124),
                     ),
@@ -116,7 +117,6 @@ class _HomePageState extends State<HomePage> {
         ],
         onTap: onTapHandler,
         currentIndex: currentvalue,
-        selectedItemColor: Colors.blue,
       ),
     );
   }
