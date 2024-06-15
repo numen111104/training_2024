@@ -73,7 +73,7 @@ class DetailPage extends StatelessWidget {
               ),
               child: const Text(
                 "Edit Note",
-                style: const TextStyle(fontSize: 16),
+                style:  TextStyle(fontSize: 16),
               ),
             ),
           ],

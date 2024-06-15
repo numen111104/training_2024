@@ -30,10 +30,10 @@ class _AddPageState extends State<AddPage> {
 
   //image picker handler
   void imagePickerHandler() async {
-    final XFile? _image =
+    final XFile? pickImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
-      image = _image;
+      image = pickImage;
     });
   }
 
@@ -115,7 +115,6 @@ class _AddPageState extends State<AddPage> {
                 padding: const EdgeInsets.all(16),
                 child: BlocConsumer<AddNoteBloc, AddNoteState>(
                   listener: (context, state) {
-                    // TODO: implement listener
                     if (state is AddNoteSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

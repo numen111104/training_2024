@@ -30,7 +30,6 @@ class _EditPageState extends State<EditPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _titleController.text = widget.note.title!;
     _contentController.text = widget.note.content!;
     isPinned = widget.note.isPinned! == 1 ? true : false;
@@ -41,7 +40,7 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Page"),
+        title: const Text("Edit Page"),
       ),
       body: ListView(
         children: [
@@ -79,7 +78,6 @@ class _EditPageState extends State<EditPage> {
             padding: const EdgeInsets.all(16),
             child: BlocConsumer<UpdateNoteBloc, UpdateNoteState>(
               listener: (context, state) {
-                // TODO: implement listener
                 if (state is UpdateNoteSuccess) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

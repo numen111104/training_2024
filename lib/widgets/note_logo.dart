@@ -8,7 +8,7 @@ class NoteLogo extends StatelessWidget {
     return Container(
       width: 150,
       height: 150,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/logo/notes.png'),
           fit: BoxFit.contain,
