@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:training_2024/pages/home_page.dart';
 import 'package:training_2024/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:training_2024/presentation/auth/register_page.dart';
+import 'package:training_2024/presentation/notes/notes_page.dart';
 import 'package:training_2024/theme.dart';
 import 'package:training_2024/widgets/custom_text_field.dart';
+import 'package:training_2024/widgets/loading_button.dart';
 import 'package:training_2024/widgets/note_logo.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _formKey.currentState?.dispose();
   }
 
   @override
@@ -31,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: StyleCustome.green,
-        centerTitle: true,
         title: const Text(
           "Login Page",
           style: TextStyle(color: Colors.white),
@@ -96,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const HomePage()));
+                            builder: (context) => const NotesPage()));
                   }
                   if (state is LoginFailed) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -110,24 +111,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: BlocBuilder<LoginBloc, LoginState>(
                   builder: (context, state) {
                     if (state is LoginLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const LoadingButton();
                     }
                     return ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate() != true) {
                           return;
                         }
-                        // TODO: Add login logic
-                        context.read<LoginBloc>().add(LoginButtonPressed(
-                            email: _emailController.text,
-                            password: _passwordController.text));
+                        context.read<LoginBloc>().add(
+                              LoginButtonPressed(
+                                  email: _emailController.text,
+                                  password: _passwordController.text),
+                            );
                       },
-                      style: const ButtonStyle(
-                        textStyle: WidgetStatePropertyAll(
-                            TextStyle(color: Colors.blue)),
-                      ),
                       child: const Text("Login"),
                     );
                   },

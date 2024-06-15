@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_2024/pages/first_page.dart';
 import 'package:training_2024/pages/profile_page.dart';
 import 'package:training_2024/pages/search_page.dart';
 import 'package:training_2024/pages/setting_page.dart';
+import 'package:training_2024/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:training_2024/presentation/auth/login_page.dart';
 import 'package:training_2024/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -83,9 +86,35 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.search),
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert_outlined),
-            onPressed: () {},
+          BlocConsumer<LogoutBloc, LogoutState>(
+            listener: (context, state) {
+              if (state is LogoutSucces) {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (route) => false);
+              }
+              if (state is LogoutFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is LogoutLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return IconButton(
+                icon: const Icon(Icons.logout_rounded),
+                onPressed: () {
+                  context.read<LogoutBloc>().add(LogoutButtonPressed());
+                },
+              );
+            },
           ),
         ],
       ),

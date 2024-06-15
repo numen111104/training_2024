@@ -15,14 +15,14 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: TextFormField(
         obscureText: obscureText,
         controller: controller,
         decoration: InputDecoration(
           labelText: labelText,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
+              const EdgeInsets.symmetric(vertical: 14.0, horizontal: 13.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             // borderSide: BorderSide.none,

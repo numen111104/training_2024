@@ -5,6 +5,7 @@ import 'package:training_2024/presentation/auth/bloc/register/register_bloc.dart
 import 'package:training_2024/presentation/auth/login_page.dart';
 import 'package:training_2024/theme.dart';
 import 'package:training_2024/widgets/custom_text_field.dart';
+import 'package:training_2024/widgets/loading_button.dart';
 import 'package:training_2024/widgets/note_logo.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _formKey.currentState?.dispose();
     super.dispose();
   }
 
@@ -37,7 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: StyleCustome.green,
-        centerTitle: true,
       ),
       body: Form(
         key: _formKey,
@@ -97,58 +98,52 @@ class _RegisterPageState extends State<RegisterPage> {
                 return null;
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: BlocListener<RegisterBloc, RegisterState>(
-                listener: (context, state) {
-                  // TODO: implement listener
-                  if (state is RegisterSucces) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
-                  }
-                  if (state is RegisterFailed) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        padding: const EdgeInsets.all(10),
-                        content: Text(state.message),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: BlocBuilder<RegisterBloc, RegisterState>(
-                  builder: (context, state) {
-                    if (state is RegisterLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState?.validate() != true) {
-                          return;
-                        }
-                        //register
-                        final dataModel = RegisterRequestModel(
-                          name: _nameController.text,
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
-                        context
-                            .read<RegisterBloc>()
-                            .add(RegisterButtonPressed(data: dataModel));
-                      },
-                      style: const ButtonStyle(
-                        textStyle: WidgetStatePropertyAll(
-                            TextStyle(color: StyleCustome.green)),
-                      ),
-                      child: const Text("Register"),
-                    );
-                  },
-                ),
-              ),
+            BlocConsumer<RegisterBloc, RegisterState>(
+              listener: (context, state) {
+                if (state is RegisterSucces) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                }
+                if (state is RegisterFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      padding: const EdgeInsets.all(10),
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: state is RegisterLoading
+                      ? const LoadingButton()
+                      : ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate() != true) {
+                              return;
+                            }
+                            //register
+                            final dataModel = RegisterRequestModel(
+                              name: _nameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                            context
+                                .read<RegisterBloc>()
+                                .add(RegisterButtonPressed(data: dataModel));
+                          },
+                          style: const ButtonStyle(
+                            textStyle: WidgetStatePropertyAll(
+                                TextStyle(color: StyleCustome.green)),
+                          ),
+                          child: const Text("Register"),
+                        ),
+                );
+              },
             ),
             const SizedBox(
               height: 16,

@@ -2,16 +2,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:training_2024/data/models/responses/auth_response_model.dart';
 
 class AuthLocalDatasource {
-  Future<void> saveAuthData(Data data) async {
+  Future<void> saveAuthData(AuthResponseModel data) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_data', data.toString());
+    await prefs.setString('auth_data', data.toJson());
     return;
   }
 
-  Future<Data> getAuthData() async {
+  Future<AuthResponseModel> getAuthData() async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString('auth_data');
-    return Data.fromJson(data!);
+    return AuthResponseModel.fromJson(data!);
   }
 
   Future<void> removeAuthData() async {
